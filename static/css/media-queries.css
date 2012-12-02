@@ -1,0 +1,170 @@
+
+/* 
+	MEDIA QUERIES FOR COMMON DEVICES- RESPONSIVE GRID SYSTEM
+	LICENSE - PUBLIC DOMAIN
+*/
+
+/* SMARTPHONES - PORTRAIT & LANDSCAPE */
+@media
+only screen and (min-device-width: 320px) and (max-device-width: 480px),
+only screen and (min-width: 320px) and (max-width: 480px) {
+	
+	.element { min-width: 100%;}
+	.container						{ width: 95%; overflow: hidden; } /* edit how you see fit */
+	
+	h2.headline {font-size: 2.5em;}
+	h3 {font-size: 1.2em;}
+	
+	p.secondary {font-size: 1.1em;}
+	p.tertiary {font-size: 0.9em;}
+	.span_3,.span_4,.span_5,.span_6,.span_7,.span_8,.span_9,.span_10 {width: 100%;}
+	
+	#tweet ul {font-size: 1em;}
+	
+	.event-slide-info {padding: 10px 0;}
+	.event-slide-info h2 { background:rgba(235,235,235,0.8);font-size: 3em; margin: 0;}
+	.event-slide-info p {font-size: 1.2em; margin: 0;}
+	
+	#home-content .sidebar-context li a {margin: 0 0 10px 0;}
+	
+	#index-header {display: none;}
+	
+
+    textarea#msg { padding:25px; font-size:1.2em; font-weight:200;border:none;background: #fff; min-height: 200px; width: 200px; min-width:200px;}
+	
+    p {font-size: 2em; margin-top: .5em;  border-top: 1px solid #fff;}
+
+	ul#social {background: #fff; width: 100%;}
+
+}
+
+/* SMARTPHONES - LANDSCAPE */
+@media 
+only screen and (min-width: 321px) {
+	
+
+    textarea#msg { padding:25px; font-size:1.2em; font-weight:200;border:none;background: #fff; min-height: 200px; width: 200px; min-width:200px;}
+	.container						{ width: 95%; } /* edit how you see fit */
+	
+    p {font-size: 2em; margin-top: .5em;  border-top: 1px solid #fff;}
+	h2.headline {font-size: 4em;}
+	h3 {font-size: 2em;}
+	
+
+}
+
+/* SMARTPHONES - PORTRAIT */
+@media 
+only screen and (max-width: 320px) {
+	
+	.container						{ width: 95%; } /* edit how you see fit */
+	
+    textarea#msg { padding:25px; font-size:1.2em; font-weight:200;border:none;background: #fff; min-height: 200px; width: 200px; min-width:200px;}
+	
+    p {font-size: 2em; margin-top: .5em;  border-top: 1px solid #fff;}
+	h2.headline {font-size: 2.5em;}
+	h3 {font-size: 1.5em;}
+
+}
+
+@media 
+only screen and (min-device-width: 0px) and (max-device-width: 800px),
+only screen and (min-width: 0px) and (max-width: 800px) {
+	.span_3 {width: 100%;}
+	.span_9 {width: 100%;}
+	#home-content .sidebar-context li a {margin: 0 0 10px 0;}
+	#home-content ul.upcoming-events-sidebar li {}
+	#home-content .blog-post-element {margin-right: 0px;}
+	#home-content ul.fb-feed-list {margin: 0 0 0 0; font-size: 1em;} 
+	#tweet ul {font-size: 1.2em;}
+
+	
+	}
+
+/* IPADS - PORTRAIT & LANDSCAPE */
+@media 
+only screen and (min-device-width: 768px) and (max-device-width: 1024px),
+only screen and (min-width: 768px) and (max-width: 1024px) {
+	
+	.container	{ width: 95%; } /* edit how you see fit */
+	
+	h2.headline {font-size: 6em;}
+	h3 {font-size: 2.5em;}
+	
+
+	
+	
+}
+
+/* IPADS - LANDSCAPE */
+@media 
+only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+	
+	.container						{ width: 95%; } /* edit how you see fit */
+	
+	h2.headline {font-size: 2.5em;}
+	h3 {font-size: 1.5em;}
+	
+}
+
+/* IPADS - PORTRAIT */
+@media 
+only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+	
+	.container						{ width: 95%; } /* edit how you see fit */
+	
+	h2.headline {font-size: 4em;}
+	h3 {font-size: 2em;}
+}
+
+
+/* DESKTOPS & LAPTOPS */
+@media 
+only screen and (min-width: 800px) {
+	h3 {font-size: 2.5em;}
+	#navwrap {width: 100%; background: #fff;position: fixed;z-index: 1001; }
+	#home-content .upcoming-events-sidebar li a {background: none;}
+	#home-content .upcoming-events-sidebar li a:hover {background: #fff;}
+	ul#social {background: none;}
+}
+
+/* DESKTOPS & LAPTOPS */
+@media 
+only screen and (min-width: 1024px) {
+	
+	.container						{ max-width: 1000px; }
+	
+	h2.headline {font-size: 7em;}
+	h3 {font-size: 2.5em;}
+	
+}
+
+@media 
+only screen and (min-width: 1224px) {
+	
+	.container						{ max-width: 1200px; }
+	
+	h2.headline {font-size: 7em;}
+	h3 {font-size: 2.5em;}
+	
+}
+
+/* LARGE SCREENS */
+@media 
+only screen and (min-width : 1824px) {
+	
+	.container						{ max-width: 1800px; }
+	
+	h2.headline {font-size: 7em;}
+	h3 {font-size: 2.5em;}
+	
+}
+
+/* RETINA DISPLAY */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+	
+	/* INSERT YOUR STYLES */
+	
+}	

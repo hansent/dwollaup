@@ -10,9 +10,8 @@ http://developers.dwolla.com/
 
 import json
 import urllib
-import requests
 import datetime
-
+from google.appengine.api import urlfetch
 
 class DwollaGateway(object):
     def __init__(self, client_id, client_secret, redirect_uri):
@@ -25,7 +24,7 @@ class DwollaGateway(object):
     def set_mode(self, mode):
         if mode not in ['LIVE', 'TEST']:
             return False
-        
+
         self.mode = mode
         return True
 
@@ -42,28 +41,33 @@ class DwollaGateway(object):
 
         self.session.append(product)
         return True
-        
-    def get_gateway_URL(self, destination_id, order_id = None, discount = 0, shipping = 0, tax = 0, notes = None, callback = None):
+
+    def get_gateway_URL(self, destination_id, order_id=None,
+            discount=0, shipping=0, tax=0, notes=None, callback=None,
+            allow_funding_sources=0):
         # Calcualte subtotal
         subtotal = 0
         for product in self.session:
             subtotal += float(product['Price']) * float(product['Quantity'])
-            
+
         # Calculate grand total
         total = subtotal - discount + shipping + tax
+
 
         # Create request body
         request = {}
         request['Key'] = self.client_id
         request['Secret'] = self.client_secret
-        request['Redirect'] = self.redirect_uri
         request['Test'] = 'true' if (self.mode == 'TEST') else 'false'
+        request['AllowFundingSources'] = "true"
+        request['Redirect'] = self.redirect_uri
         request['PurchaseOrder'] = {}
         request['PurchaseOrder']['DestinationId'] = destination_id
         request['PurchaseOrder']['OrderItems'] = self.session
         request['PurchaseOrder']['Discount'] = -discount
         request['PurchaseOrder']['Shipping'] = shipping
         request['PurchaseOrder']['Tax'] = tax
+
         request['PurchaseOrder']['Total'] = round(total, 2)
 
         # Append optional parameters
@@ -73,12 +77,17 @@ class DwollaGateway(object):
             request['Callback'] = callback
         if notes:
             request['PurchaseOrder']['Notes'] = notes
-            
+
         # Send off the request
         headers = {'Content-Type': 'application/json'}
         data = json.dumps(request)
-        response = requests.post('https://www.dwolla.com/payment/request', data=data, headers=headers, verify=True)
 
+        #response = requests.post(, verify=True)
+        response = urlfetch.fetch(url='https://www.dwolla.com/payment/request',
+            method=urlfetch.POST,
+            payload=data,
+            headers=headers
+        )
         # Parse the response
         response = json.loads(response.content)
         if response['Result'] != 'Success':
@@ -96,7 +105,7 @@ class DwollaGateway(object):
         hash = hmac.new(self.client_secret, raw, hashlib.sha1).hexdigest()
 
         return True if (hash == signature) else False
-        
+
 
 class DwollaAPIError(Exception):
     '''Raised if the dwolla api returns an error.'''
@@ -178,7 +187,9 @@ class DwollaClientApp(object):
         }
         if 'redirect_uri' in kwargs:
             params['redirect_uri'] = kwargs['redirect_uri']
-        resp = requests.get(self.token_url, params=params, verify=True)
+        #resp = requests.get(, params=params, verify=True)
+        _url = "%s?%s" % (self.token_url, urllib.urlencode(params))
+        resp = urlfetch.fetch(_url)
         resp = json.loads(resp.content)
         try:
             return resp['access_token']
@@ -194,13 +205,15 @@ class DwollaClientApp(object):
         params['client_id'] = self.client_id
         params['client_secret'] = self.client_secret
         url = "%s/%s" % (self.api_url, resource)
-        return requests.get(url, params=params, verify=True)
+        _url = "%s?%s" % (url, urllib.urlencode(params))
+        return urlfetch.fetch(_url)
 
     def api_post(self, endpoint, data):
         url = "%s%s" % (self.api_url, endpoint)
         headers = {'Content-Type': 'application/json'}
         data = json.dumps(data)
-        return requests.post(url, data=data, headers=headers)
+
+        return urlfetch.fetch(url, method=urlfetch.POST, payload=data, headers=headers)
 
     def get(self, resource, **params):
         '''
@@ -317,14 +330,17 @@ class DwollaUser(object):
     def api_get(self, endpoint, **params):
         url = "%s/%s" % (self.api_url, endpoint)
         params['oauth_token'] = self.access_token
-        return requests.get(url, params=params, verify=True)
+        #return requests.get(url, params=params, verify=True)
+        _url = "%s?%s" % (url, urllib.urlencode(params))
+        return urlfetch.fetch(_url)
 
     def api_post(self, endpoint, data):
         url = "%s/%s" % (self.api_url, endpoint)
         headers = {'Content-Type': 'application/json'}
         data['oauth_token'] = self.access_token
         data = json.dumps(data)
-        return requests.post(url, data=data, headers=headers)
+        #return requests.post(url, data=data, headers=headers)
+        return urlfetch.fetch(url, method=urlfetch.POST, payload=data, headers=headers)
 
     def get(self, endpoint, **params):
         resp = self.api_get(endpoint, **params)
@@ -458,7 +474,7 @@ class DwollaUser(object):
         :param dest_type: (optional) Type of destination user.
             Defaults to "Dwolla". Can be "Dwolla", "Facebook", "Twitter",
             "Email", or "Phone".
-            
+
         :param funds_source: (optional) The Dwolla ID of the funding
            source to be used. Defaults to the user's Dwolla balance.
         '''
@@ -521,5 +537,5 @@ class DwollaUser(object):
 
         :param source_id: Funding source identifier of the funding source
             being requested.
-        '''               
+        '''
         return self.get("fundingsources/%s" % source_id)

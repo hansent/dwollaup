@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="static/css/grid.css" />
+<link rel="stylesheet" href="static/css/media-queries.css" />
+<link rel="stylesheet" href="static/css/style.css" />
+<title>DwollaUP</title>
+</head>
+
+<body>
+
+<div class="container">
+<div class="span_12 floatl">	
+    <form method="POST">
+    <div class="span_3 floatl">
+        
+    <div >
+    <p></p>
+    <h2>account 
+        {% if account == "000-000-0000" %}
+        <small><a href="/login">(login)</a></small>
+        {% else %}
+        <small><a href="/logout">(logout)</a></small>
+        {% endif %}
+    
+    </h2>
+    <input id="dwolla_id" name="dwolla_id" value="{{account}}" />
+    <p></p>
+    <h2>amount</h2>
+    <input name="amount" value="${{session.pop('amount', None) or '5'}}" />
+    <p></p>
+		<a class="btn" on_click="post">Ask for dwolla$</a>
+        <p>
+        
+        {% if error %}
+        <span style='font-wight: normal; font-size:0.5em; color:#f20'>{{error}}</span>
+        {% endif %}
+        </p>
+	</div>
+		
+	</div>	
+		
+        <div class="span_7 floatl">
+            <textarea id="msg" name="text">{{session.pop('text', None) or 'Money is for...'}}</textarea>
+        </div>
+        </form>
+</div>
+	
+	
+</div>	
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+$('#dwolla_id').focus();
+
+$(document).ready(function(){
+    $('.btn').click(function(){
+        $("form").submit();
+    });
+});
+</script>
+
+</body>
+</html>

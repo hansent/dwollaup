@@ -1,6 +1,0 @@
-{
-  "DWOLLA_API_KEY": "my-dwolla-apps-api-key", 
-  "DWOLLA_API_SECRET": "my-dwolla-apps-api-secret", 
-
-  "webapp2_extras.sessions": {"secret_key": "my-super-secret-key"}
-}

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="static/css/grid.css" />
+<link rel="stylesheet" href="static/css/media-queries.css" />
+<link rel="stylesheet" href="static/css/style.css" />
+<title>DwollaUP</title>
+</head>
+
+<body>
+
+<div class="container">
+<div class="span_12 floatl">	
+
+        <div class="span_7 floatl">
+        <textarea id="msg"></textarea>
+        </div>
+
+        <div class="span_4 floatr">
+
+        <div id="bio">
+		
+		<h2>Thomas Hansen</h2>
+                <!-- <span class="bio_meta">Developer</span> -->
+				
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+				
+		<a class="btn">Pay & Send ($5)</a>
+	</div>
+		
+	</div>	
+		
+</div>
+	
+	
+</div>	
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+$("textarea#msg")
+  .focus(function() {
+        if (this.value === this.defaultValue) {
+            this.value = '';
+        }
+  })
+  .blur(function() {
+        if (this.value === '') {
+            this.value = this.defaultValue;
+        }
+});
+</script>
+
+</body>
+</html>
