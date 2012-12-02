@@ -53,7 +53,7 @@ class UserHandler(BaseHandler):
         try:
             RequestHandler.dispatch(self)
         finally:
-
+            self.session_store.save_sessions(self.response)
 
 class LoginHandler(BaseHandler):
     def get(self):
